@@ -117,7 +117,7 @@ const menuItems = [
       {
         icon: "/profile.png",
         label: "Profile",
-        href: "/profile",
+        href: "/list/profile",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
