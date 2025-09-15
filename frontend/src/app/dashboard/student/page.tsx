@@ -111,23 +111,16 @@ const StudentPage = () => {
           <UserCard type="duty leaves" value="2 Pending" />
         </div>
 
-        {/* CAROUSEL */}
+        CAROUSEL
         <Carousel className="w-full p-10 relative">
           <CarouselContent>
             {/* Slide 1: Student Info */}
             <CarouselItem className="p-4">
               <div className="bg-blue-100 shadow-md rounded-xl h-80 flex flex-col items-center justify-center gap-4 w-full p-6 border border-gray-200">
-                <img
-                  src="/profile.png"
-                  alt=""
-                  className="w-24 h-24 rounded-full shadow"
-                />
-                <h2 className="text-xl font-bold">Ritika Gupta</h2>
-                <p className="text-gray-600">Roll No: 2203542</p>
-                <p className="text-gray-600">Year: Final Year</p>
-                <p className="text-gray-500">Computer Science Engineering</p>
+                <p className="text-xl font-bold">Slide 1</p>
               </div>
             </CarouselItem>
+           
 
             {/* Slide 2 */}
             <CarouselItem className="p-4">

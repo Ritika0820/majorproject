@@ -21,39 +21,15 @@ export default function HomePage() {
           <Link href="/about" className="hover:text-blue-600">About</Link>
           <Link href="/contact" className="hover:text-blue-600">Contact</Link>
           <Link
-            href="/login"
+            href="/sign-up"
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Sign Up
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden flex flex-col gap-1.5"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span className="w-6 h-0.5 bg-gray-700"></span>
-          <span className="w-6 h-0.5 bg-gray-700"></span>
-          <span className="w-6 h-0.5 bg-gray-700"></span>
-        </button>
+        
       </nav>
-
-      {/* Mobile Dropdown */}
-      {menuOpen && (
-        <div className="md:hidden flex flex-col items-center gap-4 bg-white py-4 shadow-md">
-          <Link href="/" onClick={() => setMenuOpen(false)} className="hover:text-blue-600">Home</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)} className="hover:text-blue-600">About</Link>
-          <Link href="/contact" onClick={() => setMenuOpen(false)} className="hover:text-blue-600">Contact</Link>
-          <Link
-            href="/login"
-            onClick={() => setMenuOpen(false)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Sign Up
-          </Link>
-        </div>
-      )}
 
       {/* HERO */}
       <header className="flex flex-col items-center justify-center text-center py-16 px-4 bg-gradient-to-r from-blue-500 to-red-500 text-white">
