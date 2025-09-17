@@ -27,18 +27,37 @@ export default function LoginPage() {
     student: { email: "student@test.com", password: "moyemoye123" },
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError(""); // reset error
 
-    // TypeScript-safe access
-    const valid = credentials[role];
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // ✅ include cookies
+      body: JSON.stringify({ email, password, role }),
+    });
 
-    if (email === valid.email && password === valid.password) {
-      router.push(roleUrls[role]); // Redirect based on role
-    } else {
-      setError("Invalid credentials or role!");
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || "Login failed!");
+      return;
     }
-  };
+
+    console.log("Login success:", data);
+
+    // ✅ Redirect based on role
+    router.push(roleUrls[role]);
+  } catch (err) {
+    console.error("Login error:", err);
+    setError("Something went wrong!");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#EDF9FD]">

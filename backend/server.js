@@ -3,6 +3,12 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+require('dotenv').config();
+
+
+const authRoutes = require("./routes/auth");
+const studentInfoRoutes = require("./routes/studentInfo");
+
 //can also create a separate file for dbConnect and import that here
 mongoose.connect('mongodb+srv://manveerdhaliwal033_db_user:hellooGMS502@cluster0.iwrboev.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then( () => console.log("DB connected successfully")).catch( (error) => console.log(error));
 
@@ -26,5 +32,12 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+
+
+
+// API routes
+app.use("/api/auth", authRoutes);
+app.use("/api/student-info", studentInfoRoutes);
+
 
 app.listen(PORT , () => console.log(`Server is running on port ${PORT}`));

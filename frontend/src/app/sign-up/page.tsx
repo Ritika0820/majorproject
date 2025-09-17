@@ -11,16 +11,39 @@ export default function SignupPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!role) {
-      setError("Please select a role!");
+const handleSignup = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!role) {
+    setError("Please select a role!");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // so cookies work
+      body: JSON.stringify({ role, ...formData }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || "Signup failed");
       return;
     }
-    console.log("Signup Data:", { role, ...formData });
+
+    console.log("Signup successful:", data);
+    alert("Signup successful!");
     setError("");
-    alert("Signup successful (dummy)!");
-  };
+  } catch (err) {
+    console.error("Error:", err);
+    setError("Something went wrong");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#EDF9FD]">
@@ -156,7 +179,7 @@ export default function SignupPage() {
                 />
                 <input
                   type="text"
-                  name="crn"
+                  name="CRN"
                   placeholder="CRN"
                   onChange={handleChange}
                   required
@@ -165,7 +188,7 @@ export default function SignupPage() {
                 />
                 <input
                   type="text"
-                  name="urn"
+                  name="URN"
                   placeholder="URN"
                   onChange={handleChange}
                   required
