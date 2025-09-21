@@ -1,118 +1,326 @@
-// "use client";
+"use client";
 
-// import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
-// export default function StudentInfoPage() {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     urn: "",
-//     email: "",
-//     course: "",
-//     year: "",
-//   });
+interface StudentFormData {
+  fatherName: string;
+  motherName: string;
+  permanentAddress: string;
+  email: string;
+  category: string;
+  dob: string;
+  studentMobile: string;
+  fatherMobile: string;
+  motherMobile: string;
+  admissionDate: string;
+  passingYear: string;
+}
 
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
+export default function StudentInfo() {
+  const [formData, setFormData] = useState<StudentFormData>({
+    fatherName: "",
+    motherName: "",
+    permanentAddress: "",
+    email: "",
+    category: "",
+    dob: "",
+    studentMobile: "",
+    fatherMobile: "",
+    motherMobile: "",
+    admissionDate: "",
+    passingYear: "",
+  });
 
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     console.log("Form submitted (UI only):", formData);
-//     alert("Student info saved (frontend only, no backend yet)");
-//   };
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-//   return (
-//     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-//       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-8">
-//         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-//           Student Information
-//         </h2>
+  const categories = ["General", "OBC", "SC", "ST", "Other"];
 
-//         <form onSubmit={handleSubmit} className="space-y-5">
-//           {/* Name */}
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-//             <input
-//               type="text"
-//               name="name"
-//               placeholder="Enter full name"
-//               value={formData.name}
-//               onChange={handleChange}
-//               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-//               required
-//             />
-//           </div>
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-//           {/* URN */}
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700 mb-1">URN</label>
-//             <input
-//               type="text"
-//               name="urn"
-//               placeholder="Unique Registration Number"
-//               value={formData.urn}
-//               onChange={handleChange}
-//               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-//               required
-//             />
-//           </div>
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
 
-//           {/* Email */}
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="student@example.com"
-//               value={formData.email}
-//               onChange={handleChange}
-//               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-//               required
-//             />
-//           </div>
+  return (
+    <div className="min-h-screen flex justify-center items-start p-6 bg-gray-100">
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-8 mt-10 border border-gray-200">
+        <h2 className="text-3xl font-bold text-center mb-8 text-indigo-700">
+          🎓 Student Information
+        </h2>
 
-//           {/* Course */}
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700 mb-1">Course</label>
-//             <input
-//               type="text"
-//               name="course"
-//               placeholder="e.g., B.Tech CSE"
-//               value={formData.course}
-//               onChange={handleChange}
-//               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-//               required
-//             />
-//           </div>
+        {!isSubmitted ? (
+          // ===== FORM =====
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {/* Father's Name */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Father&apos;s Name
+              </label>
+              <input
+                type="text"
+                name="fatherName"
+                value={formData.fatherName}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
 
-//           {/* Year */}
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-//             <select
-//               name="year"
-//               value={formData.year}
-//               onChange={handleChange}
-//               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-//               required
-//             >
-//               <option value="">Select Year</option>
-//               <option value="1">1st Year</option>
-//               <option value="2">2nd Year</option>
-//               <option value="3">3rd Year</option>
-//               <option value="4">4th Year</option>
-//             </select>
-//           </div>
+            {/* Mother's Name */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Mother&apos;s Name
+              </label>
+              <input
+                type="text"
+                name="motherName"
+                value={formData.motherName}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
 
-//           {/* Submit */}
-//           <button
-//             type="submit"
-//             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-//           >
-//             Save Info
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
+            {/* Email */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
+
+            {/* Permanent Address */}
+            <div className="md:col-span-3">
+              <label className="block mb-1 text-gray-700 font-medium">
+                Permanent Address
+              </label>
+              <textarea
+                name="permanentAddress"
+                value={formData.permanentAddress}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+                rows={2}
+              />
+            </div>
+
+            {/* Category */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Category
+              </label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:ring-2 focus:ring-indigo-200"
+              >
+                <option value="">Select Category</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Date of Birth */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
+
+            {/* Student Mobile */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Student Mobile
+              </label>
+              <input
+                type="tel"
+                name="studentMobile"
+                value={formData.studentMobile}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+                pattern="[0-9]{10}"
+                placeholder="10-digit number"
+              />
+            </div>
+
+            {/* Father Mobile */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Father Mobile
+              </label>
+              <input
+                type="tel"
+                name="fatherMobile"
+                value={formData.fatherMobile}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+                pattern="[0-9]{10}"
+                placeholder="10-digit number"
+              />
+            </div>
+
+            {/* Mother Mobile */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Mother Mobile
+              </label>
+              <input
+                type="tel"
+                name="motherMobile"
+                value={formData.motherMobile}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+                pattern="[0-9]{10}"
+                placeholder="10-digit number"
+              />
+            </div>
+
+            {/* Admission Date */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Admission Date
+              </label>
+              <input
+                type="date"
+                name="admissionDate"
+                value={formData.admissionDate}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+              />
+            </div>
+
+            {/* Passing Year */}
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Passing Year
+              </label>
+              <input
+                type="number"
+                name="passingYear"
+                value={formData.passingYear}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-200"
+                min={1900}
+                max={2099}
+              />
+            </div>
+
+            {/* Submit */}
+            <div className="md:col-span-3 flex justify-center">
+              <button
+                type="submit"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-lg shadow-md transition-all"
+              >
+                Submit 🚀
+              </button>
+            </div>
+          </form>
+        ) : (
+          // ===== SUBMITTED DETAILS =====
+          <div className="space-y-6">
+            {/* Personal Info */}
+            <div className="bg-indigo-50 p-6 rounded-xl shadow-md border-l-4 border-indigo-600">
+              <h3 className="text-xl font-semibold text-indigo-700 mb-3">
+                👨‍👩‍👧 Personal Info
+              </h3>
+              <p>
+                <strong>Father&apos;s Name:</strong> {formData.fatherName}
+              </p>
+              <p>
+                <strong>Mother&apos;s Name:</strong> {formData.motherName}
+              </p>
+              <p>
+                <strong>Date of Birth:</strong> {formData.dob}
+              </p>
+              <p>
+                <strong>Category:</strong> {formData.category}
+              </p>
+            </div>
+
+            {/* Contact Info */}
+            <div className="bg-teal-50 p-6 rounded-xl shadow-md border-l-4 border-teal-400">
+              <h3 className="text-xl font-semibold text-teal-700 mb-3">
+                📞 Contact Info
+              </h3>
+              <p>
+                <strong>Email:</strong> {formData.email}
+              </p>
+              <p>
+                <strong>Student Mobile:</strong> {formData.studentMobile}
+              </p>
+              <p>
+                <strong>Father Mobile:</strong> {formData.fatherMobile}
+              </p>
+              <p>
+                <strong>Mother Mobile:</strong> {formData.motherMobile}
+              </p>
+              <p>
+                <strong>Address:</strong> {formData.permanentAddress}
+              </p>
+            </div>
+
+            {/* Academic Info */}
+            <div className="bg-yellow-50 p-6 rounded-xl shadow-md border-l-4 border-yellow-400">
+              <h3 className="text-xl font-semibold text-yellow-700 mb-3">
+                📘 Academic Info
+              </h3>
+              <p>
+                <strong>Admission Date:</strong> {formData.admissionDate}
+              </p>
+              <p>
+                <strong>Passing Year:</strong> {formData.passingYear}
+              </p>
+            </div>
+
+            {/* Edit Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => setIsSubmitted(false)}
+                className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-6 py-2 rounded-lg shadow-md transition-all"
+              >
+                Edit ✏️
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+

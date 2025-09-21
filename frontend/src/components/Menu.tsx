@@ -9,7 +9,7 @@ const menuItems = [
       {
         icon: "/home.png",
         label: "Home",
-        href: "/",
+        href: "/dashboard/student",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
@@ -70,7 +70,7 @@ const menuItems = [
             {
         icon: "/assignment.png",
         label: "Research Paper",
-        href: "/list/research Paper",
+        href: "/list/researchpapers",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
@@ -88,7 +88,7 @@ const menuItems = [
       {
         icon: "/announcement.png",
         label: "Certifications",
-        href: "/list/certificates",
+        href: "/list/certifications",
         visible: ["admin", "teacher", "student", "parent"],
       },
             {

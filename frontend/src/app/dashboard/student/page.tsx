@@ -111,7 +111,7 @@ const StudentPage = () => {
           <UserCard type="duty leaves" value="2 Pending" />
         </div>
 
-        CAROUSEL
+    
         <Carousel className="w-full p-10 relative">
           <CarouselContent>
             {/* Slide 1: Student Info */}
